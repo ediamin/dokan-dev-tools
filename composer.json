@@ -1,0 +1,23 @@
+{
+  "name": "dokan-dev-tools",
+  "description": "Dokan Dev Tools",
+  "keywords": ["wordpress", "plugin"],
+  "homepage": "https://github.com/ediamin",
+  "type": "wordpress-plugin",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+        "name": "Edi Amin",
+        "email": "to.ediamin@gmail.com"
+    }
+  ],
+  "autoload" : {
+    "psr-4": {
+        "Dokan\\DevTools\\": "includes/"
+    }
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "composer/installers": "~1.0"
+  }
+}
