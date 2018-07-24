@@ -53,6 +53,8 @@ class Vendor extends CLI {
             $vendor = wp_insert_user( $userdata );
 
             if ( ! is_wp_error( $vendor ) ) {
+                do_action( 'dokan_dev_cli_vendor_generate', $vendor, $i );
+
                 ++$generated;
             }
 

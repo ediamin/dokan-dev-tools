@@ -2,6 +2,9 @@
 
 namespace Dokan\DevTools;
 
+use Dokan\DevTools\Hooks;
+use Dokan\DevTools\Modules\Geolocation\Geolocation;
+
 /**
  * The main plugin class
  *
@@ -92,5 +95,6 @@ final class DevTools {
      */
     private function class_instances() {
         new Hooks();
+        new Geolocation();
     }
 }
