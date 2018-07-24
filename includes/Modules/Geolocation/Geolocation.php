@@ -10,7 +10,7 @@ class Geolocation {
     use Hooker;
 
     public function __construct() {
-        $this->add_action( 'dokan_dev_cli_vendor_generate', 'add_vendor_geolocation_data' );
+        $this->add_action( 'dokan_dev_cli_vendor_generated', 'add_vendor_geolocation_data' );
     }
 
     public function add_vendor_geolocation_data( $store_id ) {
