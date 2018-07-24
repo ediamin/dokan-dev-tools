@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class_exists( 'Dokan\DevTools\DevTools' ) || require_once __DIR__.'/vendor/autoload.php';
+class_exists( 'Dokan\DevTools\DevTools' ) || require_once __DIR__ . '/vendor/autoload.php';
 
 use Dokan\DevTools\DevTools;
 

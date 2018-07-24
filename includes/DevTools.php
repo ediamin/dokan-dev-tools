@@ -1,4 +1,5 @@
 <?php
+
 namespace Dokan\DevTools;
 
 /**
@@ -16,6 +17,8 @@ final class DevTools {
     public $version = '1.0.0';
 
     /**
+     * Holds the class instance
+     *
      * @var object
      *
      * @since 1.0.0
@@ -34,7 +37,7 @@ final class DevTools {
      */
     public static function init() {
         if ( ! isset( self::$instance ) && ! ( self::$instance instanceof DevTools ) ) {
-            self::$instance = new DevTools;
+            self::$instance = new DevTools();
             self::$instance->boot();
         }
 
@@ -88,5 +91,6 @@ final class DevTools {
      * @return void
      */
     private function class_instances() {
+    	new Hooks();
     }
 }
