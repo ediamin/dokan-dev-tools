@@ -9,14 +9,14 @@ namespace Dokan\DevTools;
 */
 class Dokan extends CLI {
 
-	protected $base_command = 'dokan';
+    protected $base_command = 'dokan';
 
-	/**
-	* Class constructor
-	*
-	* @since 1.0.0
-	*/
-	public function __construct() {
-	}
+    /**
+    * Class constructor
+    *
+    * @since 1.0.0
+    */
+    public function __construct() {
+    }
 
 }

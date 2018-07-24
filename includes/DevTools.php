@@ -91,6 +91,6 @@ final class DevTools {
      * @return void
      */
     private function class_instances() {
-    	new Hooks();
+        new Hooks();
     }
 }

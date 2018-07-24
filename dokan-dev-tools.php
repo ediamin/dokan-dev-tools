@@ -12,7 +12,7 @@
 
 // Do not call the file directly.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 class_exists( 'Dokan\DevTools\DevTools' ) || require_once __DIR__ . '/vendor/autoload.php';
