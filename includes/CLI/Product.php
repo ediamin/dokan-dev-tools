@@ -64,7 +64,7 @@ class Product extends CLI {
                 $updated = wp_update_post( $args, true );
 
                 if ( $updated ) {
-                    do_action( 'dokan_dev_cli_product_generated', $product );
+                    do_action( 'dokan_dev_cli_product_generated', $product, $vendor );
 
                     ++$generated;
                 }
@@ -83,7 +83,7 @@ class Product extends CLI {
     public function delete( $args, $assoc_args ) {
         $args = [
             'post_type' => 'product',
-            'number' => -1,
+            'posts_per_page' => -1,
             'post_status' => 'any'
         ];
 
