@@ -19,6 +19,7 @@
   "require": {
     "php": ">=5.4.0",
     "composer/installers": "~1.0",
-    "fzaninotto/faker": "^1.8"
+    "fzaninotto/faker": "^1.8",
+    "jdorn/sql-formatter": "^1.2"
   }
 }
