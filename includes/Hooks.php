@@ -2,6 +2,7 @@
 
 namespace Dokan\DevTools;
 
+use Dokan\DevTools\CLI\Dokan;
 use Dokan\DevTools\CLI\Product;
 use Dokan\DevTools\CLI\Vendor;
 use Dokan\DevTools\Traits\Hooker;
@@ -16,6 +17,7 @@ class Hooks {
 
     public function after_dokan_loaded() {
         if ( defined( 'WP_CLI' ) && WP_CLI ) {
+            new Dokan();
             new Vendor();
             new Product();
         }
