@@ -32,10 +32,8 @@ class Geolocation {
             $profile_settings = [];
         }
 
-        $profile_settings = [
-            'location'     => $lat . ',' . $long,
-            'find_address' => $address,
-        ];
+        $profile_settings['location']     = $lat . ',' . $long;
+        $profile_settings['find_address'] = $address;
 
         update_user_meta( $store_id, 'dokan_profile_settings', $profile_settings );
     }

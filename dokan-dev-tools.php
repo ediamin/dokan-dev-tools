@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Dokan Dev Tools
  * Plugin URI: https://github.com/ediamin
- * Description: An open source job dokan_dev_tools plugin for WordPress
+ * Description: Developer tools for Dokan plugin
  * Version: 1.0.0
  * Author: Edi Amin
  * Author URI: https://github.com/ediamin
