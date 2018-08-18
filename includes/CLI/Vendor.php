@@ -38,6 +38,8 @@ class Vendor extends CLI {
 
         $progress = $this->make_progress_bar( $message, $count );
 
+        add_filter( 'woocommerce_email_enabled_dokan_new_seller', '__return_false' );
+
         for ( $i = 0; $i < $count; $i++ ) {
             $email = $faker->safeEmail;
             $shopname = $faker->unique()->userName;
