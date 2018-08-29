@@ -63,11 +63,19 @@ class Vendor extends CLI {
                     'payment'        => array(),
                     'phone'          => $faker->phoneNumber,
                     'show_email'     => 'no',
-                    'location'       => '',
-                    'find_address'   => '',
                     'dokan_category' => '',
                     'banner'         => 0,
                 );
+
+                $add_location_data = $faker->randomElement( [true, false] );
+
+                if ( $add_location_data ) {
+                    $lat     = $faker->latitude( 23.70, 23.90 );
+                    $long    = $faker->longitude( 90.25, 90.50 );
+
+                    $dokan_settings['find_address'] = $faker->address;
+                    $dokan_settings['location'] = $lat . ',' . $long;
+                }
 
                 update_user_meta( $vendor, 'dokan_profile_settings', $dokan_settings );
                 update_user_meta( $vendor, 'dokan_store_name', $dokan_settings['store_name'] );
