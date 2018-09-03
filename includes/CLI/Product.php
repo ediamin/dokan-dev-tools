@@ -25,6 +25,26 @@ class Product extends CLI {
         $this->add_command( 'delete', 'delete' );
     }
 
+    /**
+     * Generate wc products randomly distributed to Dokan Vendors
+     *
+     * ## OPTIONS
+     *
+     * [--count=<no_of_products>]
+     * : No of products. Default is 10.
+     *
+     * ## EXAMPLES
+     *
+     *     # Generate 10 products
+     *     $ wp dokan product generate
+     *
+     *     # Generate 20 products
+     *     $ wp dokan product generate --count=20
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
     public function generate( $args, $assoc_args ) {
         if ( ! class_exists( '\WC\SmoothGenerator\Generator\Product' ) ) {
             $this->error( 'Please install and activate wc-smooth-generator plugin first. Get it here: https://github.com/woocommerce/wc-smooth-generator' );
@@ -84,6 +104,18 @@ class Product extends CLI {
         }
     }
 
+    /**
+     * Delete all products
+     *
+     * ## EXAMPLES
+     *
+     *     # Delete all products
+     *     $ wp dokan product delete
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
     public function delete( $args, $assoc_args ) {
         $args = [
             'post_type' => 'product',

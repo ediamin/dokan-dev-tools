@@ -24,6 +24,26 @@ class Vendor extends CLI {
         $this->add_command( 'delete', 'delete' );
     }
 
+    /**
+     * Generate Dokan Vendors
+     *
+     * ## OPTIONS
+     *
+     * [--count=<no_of_vendors>]
+     * : No of vendors. Default is 10.
+     *
+     * ## EXAMPLES
+     *
+     *     # Generate 10 vendors
+     *     $ wp dokan vendor generate
+     *
+     *     # Generate 20 vendors
+     *     $ wp dokan vendor generate --count=20
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
     public function generate( $args, $assoc_args ) {
         $faker = Faker::get();
 
@@ -98,6 +118,18 @@ class Vendor extends CLI {
         $this->success( $message );
     }
 
+    /**
+     * Delete Dokan Vendors
+     *
+     * ## EXAMPLES
+     *
+     *     # Delete all vendors
+     *     $ wp dokan vendor delete
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
     public function delete( $args, $assoc_args ) {
         $args = [
             'role' => 'seller'
