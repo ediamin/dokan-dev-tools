@@ -95,6 +95,5 @@ final class DevTools {
      */
     private function class_instances() {
         new Hooks();
-        new Geolocation();
     }
 }

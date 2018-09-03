@@ -67,7 +67,8 @@ class Vendor extends CLI {
                     'banner'         => 0,
                 );
 
-                $add_location_data = $faker->randomElement( [true, false] );
+                // 50-50 chance to add location data
+                $add_location_data = $faker->boolean();
 
                 if ( $add_location_data ) {
                     $lat     = $faker->latitude( 23.70, 23.90 );
