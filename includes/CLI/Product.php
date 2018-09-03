@@ -26,6 +26,10 @@ class Product extends CLI {
     }
 
     public function generate( $args, $assoc_args ) {
+        if ( ! class_exists( '\WC\SmoothGenerator\Generator\Product' ) ) {
+            $this->error( 'Please install and activate wc-smooth-generator plugin first. Get it here: https://github.com/woocommerce/wc-smooth-generator' );
+        }
+
         $faker = Faker::get();
 
         $count = 10;
