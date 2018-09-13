@@ -35,6 +35,27 @@ Delete all products
 wp dokan product delete
 ```
 
+### Modules
+Activate a Dokan module
+```
+wp dokan module activate <module_name>
+```
+
+Dectivate a Dokan module
+```
+wp dokan module deactivate <module_name>
+```
+
+Toggles a module's activation state
+```
+wp dokan module toggle <module_name>
+```
+
+Gets a list of Dokan modules
+```
+wp dokan module list
+```
+
 ### Show available commands
 ```
 wp dokan cli commands 
