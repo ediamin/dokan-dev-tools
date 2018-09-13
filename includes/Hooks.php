@@ -3,6 +3,7 @@
 namespace Dokan\DevTools;
 
 use Dokan\DevTools\CLI\Dokan;
+use Dokan\DevTools\CLI\Module;
 use Dokan\DevTools\CLI\Product;
 use Dokan\DevTools\CLI\Vendor;
 use Dokan\DevTools\Traits\Hooker;
@@ -20,6 +21,7 @@ class Hooks {
             new Dokan();
             new Vendor();
             new Product();
+            new Module();
         }
     }
 }

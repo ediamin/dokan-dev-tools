@@ -88,7 +88,7 @@ abstract class CLI extends \WP_CLI_Command {
      * @return void
      */
     protected function warning( $message ) {
-        echo \WP_CLI::colorize( "%YWarning:%n {$message}\n" );
+        echo \WP_CLI::warning( $message );
     }
 
     /**
@@ -130,7 +130,8 @@ abstract class CLI extends \WP_CLI_Command {
      * @return boolean
      */
     protected function confirm( $message ) {
-        echo \WP_CLI::colorize( "%YWarning:%n {$message} [y/n] " );
+        // echo \WP_CLI::colorize( "%YWarning:%n {$message} [y/n] " );
+        echo \WP_CLI::warning( "{$message} [y/n]" );
 
         $input = fgets( STDIN );
         $input = strtolower( trim( $input ) );
