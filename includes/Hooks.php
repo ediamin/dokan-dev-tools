@@ -14,6 +14,7 @@ class Hooks {
 
     public function __construct() {
         $this->add_action( 'dokan_loaded', 'after_dokan_loaded' );
+        $this->add_filter( 'appsero_is_local', 'is_local_server' );
     }
 
     public function after_dokan_loaded() {
@@ -23,5 +24,9 @@ class Hooks {
             new Product();
             new Module();
         }
+    }
+
+    public function is_local_server( $is_local ) {
+        return defined('DOKAN_IS_LOCAL_SERVER') ? DOKAN_IS_LOCAL_SERVER : $is_local;
     }
 }
