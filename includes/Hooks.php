@@ -3,6 +3,7 @@
 namespace Dokan\DevTools;
 
 use Dokan\DevTools\CLI\Dokan;
+use Dokan\DevTools\CLI\FollowStore;
 use Dokan\DevTools\CLI\Module;
 use Dokan\DevTools\CLI\Product;
 use Dokan\DevTools\CLI\Vendor;
@@ -23,6 +24,7 @@ class Hooks {
             new Vendor();
             new Product();
             new Module();
+            new FollowStore();
         }
     }
 
