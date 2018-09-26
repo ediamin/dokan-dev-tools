@@ -21,6 +21,7 @@ class FollowStore extends CLI {
     */
     public function __construct() {
         $this->add_command( 'randomize', 'randomize' );
+        $this->add_command( 'purge', 'purge' );
     }
 
     private function is_module_active() {
@@ -73,7 +74,7 @@ class FollowStore extends CLI {
             $random_customers = $faker->randomElements( $customers, $faker->numberBetween( 0, count( $customers ) ) );
 
             foreach ( $random_customers as $customer ) {
-                dokan_follow_store_toggle_status( $customer->ID, $vendor );
+                dokan_follow_store_toggle_status( $vendor->id, $customer->ID );
             }
 
             $progress->tick();
@@ -82,5 +83,36 @@ class FollowStore extends CLI {
         $progress->finish();
 
         $this->success( 'Randomized Follow Store data successfully.' );
+    }
+
+    /**
+     * Remove all Dokan Follow Store related data
+     *
+     * ## EXAMPLES
+     *
+     *     # Purge all data
+     *     $ wp dokan follow-store purge
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
+    public function purge() {
+        global $wpdb;
+
+        // Module related tables
+        $tables = [
+            'dokan_follow_store_followers',
+            'dokan_follow_store_update_customers',
+            'dokan_follow_store_updates',
+        ];
+
+        foreach ( $tables as $table ) {
+            $wpdb->query( 'TRUNCATE TABLE ' . $wpdb->prefix . $table );
+        }
+
+        delete_metadata( 'user', 0, 'dokan_follow_store_next_schedule', '', true );
+
+        $this->success( 'Purged all Follow Store related data.' );
     }
 }
