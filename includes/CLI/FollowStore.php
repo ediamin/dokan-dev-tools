@@ -103,15 +103,11 @@ class FollowStore extends CLI {
         // Module related tables
         $tables = [
             'dokan_follow_store_followers',
-            'dokan_follow_store_update_customers',
-            'dokan_follow_store_updates',
         ];
 
         foreach ( $tables as $table ) {
             $wpdb->query( 'TRUNCATE TABLE ' . $wpdb->prefix . $table );
         }
-
-        delete_metadata( 'user', 0, 'dokan_follow_store_next_schedule', '', true );
 
         $this->success( 'Purged all Follow Store related data.' );
     }

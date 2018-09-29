@@ -22,6 +22,7 @@ class Product extends CLI {
     */
     public function __construct() {
         $this->add_command( 'generate', 'generate' );
+        $this->add_command( 'create', 'create' );
         $this->add_command( 'delete', 'delete' );
     }
 
@@ -102,6 +103,61 @@ class Product extends CLI {
 
             $this->success( $message );
         }
+    }
+
+    /**
+     * Create a single product for a given vendor id
+     *
+     * ## OPTIONS
+     *
+     * <vendor_id>
+     * : Vendor id
+     *
+     * ## EXAMPLES
+     *
+     *     # Create a product for vendor id 10
+     *     $ wp dokan product create 10
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
+    public function create( $args ) {
+        list( $vendor_id ) = $args;
+
+        $faker = Faker::get();
+
+        $vendor = dokan()->vendor->get( $vendor_id );
+
+        if ( ! $vendor->id ) {
+            $this->error( 'Invalid vendor_id' );
+        }
+
+        $current_user = wp_set_current_user( $vendor_id );
+
+        $categories = get_categories( [
+            'taxonomy' => 'product_cat',
+            'hide_empty' => false,
+            'parent' => 0,
+        ] );
+
+        $category = $faker->randomElement( $categories );
+
+        $product_args = [
+            'post_title' => $faker->sentence( 6, true ),
+            'product_cat' => $category->term_id,
+            '_price' => 100,
+            '_regular_price' => 100,
+            '_sale_price' => '',
+        ];
+
+        $product = dokan_save_product( $product_args );
+
+        if ( is_wp_error( $product ) ) {
+            $this->error( $product->get_error_message() );
+        }
+
+        $this->success( sprintf( 'Created a new product for vendor %s', $vendor->data->data->display_name ) );
     }
 
     /**
