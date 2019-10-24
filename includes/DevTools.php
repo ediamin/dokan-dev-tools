@@ -3,7 +3,6 @@
 namespace Dokan\DevTools;
 
 use Dokan\DevTools\Hooks;
-use Dokan\DevTools\Modules\Geolocation\Geolocation;
 
 /**
  * The main plugin class

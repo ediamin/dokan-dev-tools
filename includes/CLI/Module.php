@@ -20,7 +20,7 @@ class Module extends CLI {
         $this->add_command( 'activate', 'activate' );
         $this->add_command( 'deactivate', 'deactivate' );
         $this->add_command( 'toggle', 'toggle' );
-        $this->add_command( 'list', 'list' );
+        $this->add_command( 'list', 'moduleList' );
     }
 
     /**
@@ -177,7 +177,7 @@ class Module extends CLI {
      *
      * @return void
      */
-    public function list() {
+    public function moduleList() {
         $modules = dokan_pro_get_modules();
         $actives = dokan_pro_get_active_modules();
 
