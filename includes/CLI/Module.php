@@ -20,7 +20,7 @@ class Module extends CLI {
         $this->add_command( 'activate', 'activate' );
         $this->add_command( 'deactivate', 'deactivate' );
         $this->add_command( 'toggle', 'toggle' );
-        $this->add_command( 'list', 'moduleList' );
+        $this->add_command( 'list', 'module_list' );
     }
 
     /**
@@ -64,23 +64,17 @@ class Module extends CLI {
             $this->error( 'Module name is missing!' );
         }
 
-        list( $module ) = $args;
+        list( $module_id ) = $args;
 
-        $module_file = $this->get_module_file( $module );
-
-        if ( dokan_pro_is_module_active( $module_file ) ) {
-            $this->warning( sprintf( "Module '%s' is already active", $module ) );
+        if ( dokan_pro()->module->is_active( $module_id ) ) {
+            $this->warning( sprintf( "Module '%s' is already active", $module_id ) );
             $this->success( 'Module already activated' );
             exit;
         }
 
-        $activate = dokan_pro_activate_module( $module_file );
+        dokan_pro()->module->activate_modules( [ $module_id ] );
 
-        if ( is_wp_error( $activate ) ) {
-            $this->error( $activate->get_error_message() );
-        }
-
-        $this->success( sprintf( "Module '%s' activated", $module ) );
+        $this->success( sprintf( "Module '%s' activated", $module_id ) );
     }
 
     /**
@@ -105,23 +99,17 @@ class Module extends CLI {
             $this->error( 'Module name is missing!' );
         }
 
-        list( $module ) = $args;
+        list( $module_id ) = $args;
 
-        $module_file = $this->get_module_file( $module );
-
-        if ( dokan_pro_is_module_inactive( $module_file ) ) {
-            $this->warning( sprintf( "Module '%s' isn't active", $module ) );
+        if ( ! dokan_pro()->module->is_active( $module_id ) ) {
+            $this->warning( sprintf( "Module '%s' isn't active", $module_id ) );
             $this->success( 'Module already deactivated' );
             exit;
         }
 
-        $deactivate = dokan_pro_deactivate_module( $module_file );
+        $deactivate = dokan_pro()->module->deactivate_modules( [ $module_id ] );
 
-        if ( is_wp_error( $deactivate ) ) {
-            $this->error( $deactivate->get_error_message() );
-        }
-
-        $this->success( sprintf( "Module '%s' deactivated", $module ) );
+        $this->success( sprintf( "Module '%s' deactivated", $module_id ) );
     }
 
     /**
@@ -151,23 +139,17 @@ class Module extends CLI {
             $this->error( 'Module name is missing!' );
         }
 
-        list( $module ) = $args;
+        list( $module_id ) = $args;
 
-        $module_file = $this->get_module_file( $module );
-
-        if ( dokan_pro_is_module_active( $module_file ) ) {
-            $toggle = dokan_pro_deactivate_module( $module_file );
+        if ( dokan_pro()->module->is_active( $module_id ) ) {
+            $toggle = dokan_pro()->module->deactivate_modules( [ $module_id ] );
             $message = "Module '%s' deactivated";
         } else {
-            $toggle = dokan_pro_activate_module( $module_file );
+            $toggle = dokan_pro()->module->activate_modules( [ $module_id ] );
             $message = "Module '%s' activated";
         }
 
-        if ( is_wp_error( $toggle ) ) {
-            $this->error( $toggle->get_error_message() );
-        }
-
-        $this->success( sprintf( $message, $module ) );
+        $this->success( sprintf( $message, $module_id ) );
     }
 
     /**
@@ -177,9 +159,9 @@ class Module extends CLI {
      *
      * @return void
      */
-    public function moduleList() {
-        $modules = dokan_pro_get_modules();
-        $actives = dokan_pro_get_active_modules();
+    public function module_list() {
+        $modules = dokan_pro()->module->get_all_modules();
+        $actives = dokan_pro()->module->get_active_modules();
 
         if ( empty( $modules ) ) {
             $this->error( 'No module found' );
@@ -191,13 +173,12 @@ class Module extends CLI {
             $module = explode( '/', $module_file );
 
             $list[] = [
-                'Name'    => $module[0],
-                'Title'   => $module_data['name'],
-                'Version' => $module_data['version'],
-                'Status'  => in_array( $module_file, $actives ) ? 'active' : 'inactive',
+                'ID'     => $module[0],
+                'Name'   => $module_data['name'],
+                'Status' => in_array( $module_file, $actives ) ? 'active' : 'inactive',
             ];
         }
 
-        \WP_CLI\Utils\format_items( 'table', $list, array( 'Name', 'Title', 'Version', 'Status' ) );
+        \WP_CLI\Utils\format_items( 'table', $list, array( 'ID', 'Name', 'Status' ) );
     }
 }
