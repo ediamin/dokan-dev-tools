@@ -21,8 +21,8 @@ class Hooks {
         $this->add_filter( 'dokan_vendor_analytics_client_id', 'vendor_analytics_client_id' );
         $this->add_filter( 'dokan_vendor_analytics_redirect_uri', 'vendor_analytics_redirect_uri' );
         $this->add_filter( 'dokan_vendor_analytics_refresh_token_url', 'vendor_analytics_refresh_token_url' );
-        $this->add_action( 'dokan_admin_menu', 'elementor_icons', 99999 );
         $this->add_action( 'woocommerce_before_order_object_save', 'before_order_object_save' );
+        $this->add_action( 'determine_current_user', 'determine_current_user_for_ajax' );
     }
 
     public function after_dokan_loaded() {
@@ -57,13 +57,6 @@ class Hooks {
         return 'https://198ea01c.ngrok.io/vendor-analytics/refresh-token';
     }
 
-    public function elementor_icons() {
-        add_submenu_page( 'dokan', __( 'Elementor Icons', 'dokan' ), __( 'Elementor Icons', 'dokan' ), 'manage_options', 'dokan-elementor-icons', function () {
-            wp_enqueue_style( 'dokan-style' );
-            include_once DOKAN_DEVTOOLS_VIEWS . '/elementor-icons.php';
-        } );
-    }
-
     public function before_order_object_save( $order ) {
         if ( defined( 'WP_CLI' ) && WP_CLI && ! $order->get_id() ) {
             $this->add_action( 'woocommerce_order_status_' . $order->get_status(), 'maybe_split_orders' );
@@ -78,5 +71,25 @@ class Hooks {
 
     public function maybe_split_orders( $order_id ) {
         dokan()->orders->maybe_split_orders( $order_id );
+    }
+
+    public function determine_current_user_for_ajax( $user_id ) {
+        if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+            return $user_id;
+        }
+
+        if ( ! class_exists( 'Jwt_Auth_Public' ) ) {
+            return $user_id;
+        }
+
+        $jwt_auth_public = new \Jwt_Auth_Public( 'dokan-dev-tools', DOKAN_DEVTOOLS_VERSION );
+
+        $token = $jwt_auth_public->validate_token( false );
+
+        if ( ! is_wp_error( $token ) ) {
+            return $token->data->user->id;
+        }
+
+        return $user_id;
     }
 }
