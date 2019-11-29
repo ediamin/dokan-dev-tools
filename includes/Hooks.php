@@ -9,6 +9,7 @@ use Dokan\DevTools\CLI\Product;
 use Dokan\DevTools\CLI\ReportAbuse;
 use Dokan\DevTools\CLI\SPMV;
 use Dokan\DevTools\CLI\Vendor;
+use Dokan\DevTools\Modules\Geolocation\Geolocation;
 use Dokan\DevTools\Traits\Hooker;
 
 class Hooks {
@@ -39,6 +40,7 @@ class Hooks {
         new FollowStore();
         new ReportAbuse();
         new SPMV();
+        new Geolocation();
     }
 
     public function is_local_server( $is_local ) {

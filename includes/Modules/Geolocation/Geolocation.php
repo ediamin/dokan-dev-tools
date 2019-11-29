@@ -21,10 +21,10 @@ class Geolocation {
         $long    = $faker->longitude( 90.25, 90.50 );
         $address = $faker->address;
 
-        update_usermeta( $store_id, 'geo_latitude', $lat );
-        update_usermeta( $store_id, 'geo_longitude', $long );
-        update_usermeta( $store_id, 'geo_public', 1 );
-        update_usermeta( $store_id, 'geo_address', $address );
+        update_usermeta( $store_id, 'dokan_geo_latitude', $lat );
+        update_usermeta( $store_id, 'dokan_geo_longitude', $long );
+        update_usermeta( $store_id, 'dokan_geo_public', 1 );
+        update_usermeta( $store_id, 'dokan_geo_address', $address );
 
         $profile_settings = get_user_meta( $store_id, 'dokan_profile_settings', true );
 
@@ -46,10 +46,10 @@ class Geolocation {
         $use_store_settings = ( $rand_digit % 2 === 0 ) ? 'yes' : 'no';
 
         $store_id      = $vendor->ID;
-        $geo_latitude  = get_user_meta( $store_id, 'geo_latitude', true );
-        $geo_longitude = get_user_meta( $store_id, 'geo_longitude', true );
-        $geo_public    = get_user_meta( $store_id, 'geo_public', true );
-        $geo_address   = get_user_meta( $store_id, 'geo_address', true );
+        $geo_latitude  = get_user_meta( $store_id, 'dokan_geo_latitude', true );
+        $geo_longitude = get_user_meta( $store_id, 'dokan_geo_longitude', true );
+        $geo_public    = get_user_meta( $store_id, 'dokan_geo_public', true );
+        $geo_address   = get_user_meta( $store_id, 'dokan_geo_address', true );
 
         $post_id = $product->get_id();
         update_post_meta( $post_id, '_dokan_geolocation_use_store_settings', $use_store_settings );
@@ -60,9 +60,9 @@ class Geolocation {
             $geo_address   = $faker->address;
         }
 
-        update_post_meta( $post_id, 'geo_latitude', $geo_latitude );
-        update_post_meta( $post_id, 'geo_longitude', $geo_longitude );
-        update_post_meta( $post_id, 'geo_public', $geo_public );
-        update_post_meta( $post_id, 'geo_address', $geo_address );
+        update_post_meta( $post_id, 'dokan_geo_latitude', $geo_latitude );
+        update_post_meta( $post_id, 'dokan_geo_longitude', $geo_longitude );
+        update_post_meta( $post_id, 'dokan_geo_public', $geo_public );
+        update_post_meta( $post_id, 'dokan_geo_address', $geo_address );
     }
 }
